@@ -1,21 +1,37 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Meal from './pages/Meal';
-
-
-import './App.css'
+import NotFound from './pages/NotFound';
+import AdminPage from './pages/AdminPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import './App.css';
 
 function App() {
   return (
-     <BrowserRouter>
-       <Routes>
-
-    <Route path="/" element={<Home />} />
-
-    <Route path="/meal/:id" element={<Meal />} />
-
-    </Routes>
-    </BrowserRouter>
+    <Router>
+      <div className="app-container">
+        <nav className="app-nav">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/admin" className="nav-link">Admin</Link>
+        </nav>
+        
+        <main className="app-main">
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="meal/:id" element={<Meal />} />
+            <Route 
+              path="admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 

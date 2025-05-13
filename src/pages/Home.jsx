@@ -3,6 +3,9 @@ import Favorites from "../components/Favorites";
 import MealCard from "../components/MealCard";
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom"; //  ADDING THIS IMPORT AS DONE IN CLASS
+
+
 const RANDOM_API = import.meta.env.VITE_RANDOM_MEAL_API;
 const MEAL_BYID_API = import.meta.env.VITE_MEAL_BYID_API;
 const SEARCH_API = import.meta.env.VITE_SEARCH_MEAL_API
@@ -13,10 +16,24 @@ const Home = () => {
     const [favoriteMealIds, setFavoriteMealIds] = useState([]);
     const [meals, setMeals] = useState([]);
 
-    useEffect(() => {
-        loadRandomMeal();
-        loadFavorites();
-    },[])
+     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+     const navigate = useNavigate(); // ADDING THIS LINE TO INITIALIZING NAVIGATION AS DONE IN CLASS
+
+     useEffect(() => {
+        const initializeData = async () => {
+            try {
+                await loadRandomMeal();
+                loadFavorites();
+            } catch (err) {
+                setError("Failed to load meals");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        initializeData();
+    }, []);
 
     const loadRandomMeal = async () => {
         //const meal = await getRandomMeal();
@@ -100,25 +117,33 @@ const Home = () => {
     
     <div className="meals" id="meals">
       {meals.length === 0 && randomMeal && (
+        <div onClick = {() => navigate(`/meal/${randomMeal.idMeal}`)}>
+       
+
+
+       
         <MealCard 
           meal={randomMeal} 
           isRandom={true} 
           onFavoriteToggle={toggleFavorite}
           isFavorite={favoriteMealIds.includes(randomMeal.idMeal)}
         />
+        </div>
 
       )}
-      {meals.map(meal => (
-        <MealCard 
-          key={meal.idMeal} 
-          meal={meal} 
-          onFavoriteToggle={toggleFavorite}
-          isFavorite={favoriteMealIds.includes(meal.idMeal)}
-        />
+
+{meals.map(meal => (
+                    <div key={`clickable-${meal.idMeal}`} onClick={() => navigate(`/meal/${meal.idMeal}`)}> {/* [4] WRAP EACH MEAL CARD */}
+                        <MealCard 
+                            meal={meal} 
+                            onFavoriteToggle={toggleFavorite}
+                            isFavorite={favoriteMealIds.includes(meal.idMeal)}
+                        />
+                    </div>
       ))}
     </div>
   </div>
   )
 }
 
-export default Home
+export default Home;

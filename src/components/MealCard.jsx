@@ -20,4 +20,4 @@ const MealCard = ({ meal, isRandom = false, onFavoriteToggle, isFavorite }) => {
   )
 }
 
-export default MealCard
+export default MealCard;

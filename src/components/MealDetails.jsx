@@ -1,14 +1,14 @@
 
 import { useEffect, useState } from 'react';
 
-const MealDetails = () => {
+const MealDetails =  ({ mealId }) => {
   const [meal, setMeal] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMealDetails = async () => {
       try {
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=53033`);
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
         const data = await response.json();
         setMeal(data.meals[0]);
       } catch (error) {
@@ -19,7 +19,7 @@ const MealDetails = () => {
     };
 
     fetchMealDetails();
-  });
+  } , [mealId]);
 
   if (loading) return <div className="loading">Loading meal details...</div>;
   if (!meal) return <div>Meal not found</div>;

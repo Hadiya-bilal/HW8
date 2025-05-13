@@ -22,4 +22,4 @@ const Favorites = ({favoriteMeals, removeFavorite}) => {
   )
 }
 
-export default Favorites
+export default Favorites;
