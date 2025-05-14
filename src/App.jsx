@@ -38,24 +38,14 @@ function App() {
 
 const NavBar = () => {
   return (
-    <nav className="navbar">
+     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          MealApp
-        </Link>
-        <ul className="navbar-menu">
-          <li className="navbar-item">
-            <Link to="/" className="navbar-link">Home</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/about" className="navbar-link">About</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/contacts" className="navbar-link">Contacts</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/admin" className="navbar-link">Admin</Link>
-          </li>
+        <h1 className="navbar-logo">MealApp</h1>
+        <ul className="nav-links">
+          <li><Link to="/" className="nav-link">Home</Link></li>
+          <li><Link to="/about" className="nav-link">About</Link></li>
+          <li><Link to="/contact" className="nav-link">Contacts</Link></li>
+          <li><Link to="/admin" className="nav-link">Admin</Link></li>
         </ul>
       </div>
     </nav>

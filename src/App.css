@@ -230,6 +230,22 @@ body {
   }
 }
 
+.nav-links {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin-right: 1rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+}
+
 .page-container {
   max-width: 800px;
   margin: 2rem auto;
